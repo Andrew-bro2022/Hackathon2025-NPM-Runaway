@@ -1,10 +1,10 @@
 [build]
   publish = "."
-  
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200 
+  status = 200
 
 [build.processing]
   skip_processing = false
@@ -12,19 +12,17 @@
 [build.processing.html]
   pretty_urls = true
 
-# Include only necessary files for deployment
 [build.publish]
+  # Include only necessary files for deployment
   include = [
     "index.html",
     "products_info.json",
     "netlify.toml"
   ]
-
-# Exclude all other files and directories
-[build.publish]
+  # Exclude all other files and directories
   exclude = [
     "*",
     "!index.html",
     "!products_info.json",
     "!netlify.toml"
-  ] 
+  ]
