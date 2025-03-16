@@ -11,18 +11,3 @@
 
 [build.processing.html]
   pretty_urls = true
-
-[build.publish]
-  # Include only necessary files for deployment
-  include = [
-    "index.html",
-    "products_info.json",
-    "netlify.toml"
-  ]
-  # Exclude all other files and directories
-  exclude = [
-    "*",
-    "!index.html",
-    "!products_info.json",
-    "!netlify.toml"
-  ]
