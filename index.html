@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加拿大超市产品信息</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <div id="productCard" class="bg-white rounded-lg shadow-lg p-6">
+            <div id="loadingState" class="text-center py-8">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
+                <p class="mt-4 text-gray-600">正在加载产品信息...</p>
+            </div>
+
+            <div id="productInfo" class="hidden">
+                <div class="text-center mb-6">
+                    <h1 id="productName" class="text-3xl font-bold text-gray-800 mb-2"></h1>
+                    <div class="flex justify-center mb-4">
+                        <img id="productImage" src="" alt="产品图片" class="rounded-lg max-h-64 object-contain">
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h2 class="text-xl font-semibold mb-2">营养成分</h2>
+                        <div id="nutritionFacts" class="grid grid-cols-2 gap-2">
+                            <div>份量: <span id="servingSize"></span></div>
+                            <div>热量: <span id="calories"></span></div>
+                            <div>总脂肪: <span id="totalFat"></span></div>
+                            <div>饱和脂肪: <span id="saturatedFat"></span></div>
+                            <div>钠含量: <span id="sodium"></span></div>
+                            <div>碳水化合物: <span id="carbohydrates"></span></div>
+                            <div>蛋白质: <span id="protein"></span></div>
+                            <div>纤维: <span id="fiber"></span></div>
+                            <div>糖: <span id="sugar"></span></div>
+                            <div>钙质: <span id="calcium"></span></div>
+                            <div>铁: <span id="iron"></span></div>
+                            <div>维生素D: <span id="vitaminD"></span></div>
+                            <div class="col-span-2 mt-2">
+                                <span id="warning" class="text-red-600 font-semibold"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2">产地信息</h3>
+                            <p>产地: <span id="origin"></span></p>
+                            <div id="canadianBadge" class="hidden mt-2">
+                                <span class="bg-red-600 text-white px-2 py-1 rounded-full text-sm">100% 加拿大制造</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-yellow-50 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2">认证信息</h3>
+                            <div id="certifications" class="space-y-2"></div>
+                            <div id="organicBadge" class="hidden mt-2">
+                                <span class="bg-green-600 text-white px-2 py-1 rounded-full text-sm">有机认证</span>
+                            </div>
+                            <p class="mt-2">关税: <span id="tariff"></span></p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold mb-2">添加剂和成分</h3>
+                        <p id="additives"></p>
+                    </div>
+
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h3 class="font-semibold mb-2">日期信息</h3>
+                        <p>生产日期: <span id="productionDate"></span></p>
+                        <p>保质期至: <span id="expirationDate"></span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="errorState" class="hidden text-center text-red-600 p-8">
+                <h2 class="text-2xl font-bold"></h2>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 获取URL参数
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+
+        // 显示加载状态
+        function showLoading() {
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('productInfo').classList.add('hidden');
+            document.getElementById('errorState').classList.add('hidden');
+        }
+
+        // 显示错误信息
+        function showError(message) {
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('productInfo').classList.add('hidden');
+            document.getElementById('errorState').classList.remove('hidden');
+            document.getElementById('errorState').querySelector('h2').textContent = message;
+        }
+
+        // 显示产品信息
+        function showProduct() {
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('productInfo').classList.remove('hidden');
+            document.getElementById('errorState').classList.add('hidden');
+        }
+
+        // 格式化日期
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('zh-CN');
+        }
+
+        // 加载产品数据
+        async function loadProductData() {
+            try {
+                showLoading();
+
+                if (!productId) {
+                    throw new Error('未提供产品ID');
+                }
+
+                const response = await fetch('products_info.json');
+                const products = await response.json();
+                const product = products.find(p => p.id === productId);
+
+                if (!product) {
+                    throw new Error('未找到产品');
+                }
+
+                // 更新页面信息
+                document.getElementById('productName').textContent = product.product_name;
+                document.getElementById('productImage').src = product.product_image;
+                
+                // 更新营养成分
+                const nutrition = product.nutrition_facts;
+                document.getElementById('servingSize').textContent = nutrition.serving_size || 'N/A';
+                document.getElementById('calories').textContent = nutrition.calories || 'N/A';
+                document.getElementById('totalFat').textContent = nutrition.total_fat || 'N/A';
+                document.getElementById('saturatedFat').textContent = nutrition.saturated_fat || 'N/A';
+                document.getElementById('sodium').textContent = nutrition.sodium || 'N/A';
+                document.getElementById('carbohydrates').textContent = nutrition.carbohydrates || 'N/A';
+                document.getElementById('protein').textContent = nutrition.protein || 'N/A';
+                document.getElementById('fiber').textContent = nutrition.fiber || 'N/A';
+                document.getElementById('sugar').textContent = nutrition.sugar || 'N/A';
+                document.getElementById('calcium').textContent = nutrition.calcium || 'N/A';
+                document.getElementById('iron').textContent = nutrition.iron || 'N/A';
+                document.getElementById('vitaminD').textContent = nutrition.vitamin_d || 'N/A';
+                document.getElementById('warning').textContent = nutrition.warning || '无警告信息';
+
+                // 更新其他信息
+                document.getElementById('origin').textContent = product.origin;
+                document.getElementById('tariff').textContent = product.tariff_info;
+                document.getElementById('additives').textContent = product.additives_harmful_ingredients;
+                document.getElementById('productionDate').textContent = formatDate(product.timestamp.production_date);
+                document.getElementById('expirationDate').textContent = formatDate(product.timestamp.expiration_date);
+
+                // 显示认证信息
+                const certificationsDiv = document.getElementById('certifications');
+                certificationsDiv.innerHTML = product.certifications.map(cert => 
+                    `<div class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">${cert}</div>`
+                ).join('');
+
+                // 显示或隐藏徽章
+                document.getElementById('canadianBadge').style.display = product.is_100_canadian ? 'block' : 'none';
+                document.getElementById('organicBadge').style.display = product.organic_certified ? 'block' : 'none';
+
+                showProduct();
+
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+
+        // 页面加载时执行
+        loadProductData();
+    </script>
+</body>
+</html> 
