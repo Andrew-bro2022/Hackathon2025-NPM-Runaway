@@ -5,3 +5,32 @@
   from = "/*"
   to = "/index.html"
   status = 200 
+
+[build.processing]
+  skip_processing = false
+
+[build.processing.html]
+  pretty_urls = true
+
+# Specify which files to include
+[build.publish]
+  include = [
+    "index.html",
+    "products_info.json",
+    "netlify.toml"
+  ]
+
+# Exclude everything else
+[build.publish]
+  exclude = [
+    "*.py",
+    "requirements.txt",
+    "README.md",
+    ".gitignore",
+    "qr_codes/**",
+    ".git/**",
+    ".github/**",
+    "*.log",
+    ".env",
+    "node_modules/**"
+  ] 

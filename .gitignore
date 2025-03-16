@@ -5,7 +5,7 @@ __pycache__/
 venv/
 env/
 
-# QR codes output directory
+# Generated QR codes
 qr_codes/
 
 # IDE
@@ -14,4 +14,8 @@ qr_codes/
 
 # System files
 .DS_Store
-Thumbs.db 
+Thumbs.db
+
+# Local development
+*.log
+.env 
