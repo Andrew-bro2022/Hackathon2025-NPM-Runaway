@@ -3,6 +3,11 @@
         "id": "001",
         "product_name": "Neilson Dairy Oh! 2% Milk",
         "product_image": "https://images.unsplash.com/photo-1563636619-e9143da7973b?ixlib=rb-4.0.3",
+        "origin": "Ontario, Canada",
+        "is_100_canadian": true,
+        "organic_certified": false,
+        "is_provided_by_verified_seller": true,
+        "tariff_info": "Duty-free (Canadian product)",
         "nutrition_facts": {
             "serving_size": "250ml",
             "calories": "130",
@@ -15,10 +20,6 @@
             "vitamin_d": "45% DV",
             "warning": "Contains milk"
         },
-        "origin": "Ontario, Canada",
-        "is_100_canadian": true,
-        "organic_certified": false,
-        "tariff_info": "Duty-free (Canadian product)",
         "additives_harmful_ingredients": "Vitamin D3, Vitamin A Palmitate",
         "timestamp": {
             "production_date": "2024-03-15",
@@ -30,6 +31,11 @@
         "id": "002",
         "product_name": "Canadian AAA Angus Beef Striploin Steak",
         "product_image": "https://images.unsplash.com/photo-1615937657715-bc7b4b7962c1?ixlib=rb-4.0.3",
+        "origin": "Alberta, Canada",
+        "is_100_canadian": true,
+        "organic_certified": false,
+        "is_provided_by_verified_seller": true,
+        "tariff_info": "Duty-free (Canadian product)",
         "nutrition_facts": {
             "serving_size": "100g",
             "calories": "250",
@@ -40,10 +46,6 @@
             "iron": "15% DV",
             "warning": "Handle and cook with care"
         },
-        "origin": "Alberta, Canada",
-        "is_100_canadian": true,
-        "organic_certified": false,
-        "tariff_info": "Duty-free (Canadian product)",
         "additives_harmful_ingredients": "None",
         "timestamp": {
             "production_date": "2024-03-14",
@@ -55,6 +57,11 @@
         "id": "003",
         "product_name": "Okanagan Royal Gala Apples",
         "product_image": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?ixlib=rb-4.0.3",
+        "origin": "British Columbia, Canada",
+        "is_100_canadian": true,
+        "organic_certified": true,
+        "is_provided_by_verified_seller": true,
+        "tariff_info": "Duty-free (Canadian product)",
         "nutrition_facts": {
             "serving_size": "1 medium apple (182g)",
             "calories": "95",
@@ -66,10 +73,6 @@
             "protein": "0.5g",
             "warning": "None"
         },
-        "origin": "British Columbia, Canada",
-        "is_100_canadian": true,
-        "organic_certified": true,
-        "tariff_info": "Duty-free (Canadian product)",
         "additives_harmful_ingredients": "None",
         "timestamp": {
             "production_date": "2024-03-10",
@@ -81,6 +84,11 @@
         "id": "004",
         "product_name": "SWISS CLASSIC Milk Chocolate Bar",
         "product_image": "https://images.unsplash.com/photo-1623660053975-e8f0f1a9d2bd?ixlib=rb-4.0.3",
+        "origin": "Switzerland",
+        "is_100_canadian": false,
+        "organic_certified": false,
+        "is_provided_by_verified_seller": true,
+        "tariff_info": "Import duty: 5% + GST/HST",
         "nutrition_facts": {
             "serving_size": "40g (4 squares)",
             "calories": "220",
@@ -94,10 +102,6 @@
             "iron": "4% DV",
             "warning": "Contains milk, may contain traces of nuts"
         },
-        "origin": "Switzerland",
-        "is_100_canadian": false,
-        "organic_certified": false,
-        "tariff_info": "Import duty: 5% + GST/HST",
         "additives_harmful_ingredients": "Contains milk solids, cocoa butter, sugar, soy lecithin (emulsifier), natural vanilla flavoring",
         "timestamp": {
             "production_date": "2024-02-15",

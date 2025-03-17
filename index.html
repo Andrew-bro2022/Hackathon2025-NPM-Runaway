@@ -20,30 +20,13 @@
                     <div class="flex justify-center mb-4">
                         <img id="productImage" src="" alt="Product Image" class="rounded-lg max-h-64 object-contain">
                     </div>
+                    <!-- Add verified seller badge -->
+                    <div id="verifiedSellerBadge" class="hidden mt-2">
+                        <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">Verified Seller</span>
+                    </div>
                 </div>
 
                 <div class="space-y-4">
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <h2 class="text-xl font-semibold mb-2">Nutrition Facts</h2>
-                        <div id="nutritionFacts" class="grid grid-cols-2 gap-2">
-                            <div>Serving Size: <span id="servingSize"></span></div>
-                            <div>Calories: <span id="calories"></span></div>
-                            <div>Total Fat: <span id="totalFat"></span></div>
-                            <div>Saturated Fat: <span id="saturatedFat"></span></div>
-                            <div>Sodium: <span id="sodium"></span></div>
-                            <div>Carbohydrates: <span id="carbohydrates"></span></div>
-                            <div>Protein: <span id="protein"></span></div>
-                            <div>Fiber: <span id="fiber"></span></div>
-                            <div>Sugar: <span id="sugar"></span></div>
-                            <div>Calcium: <span id="calcium"></span></div>
-                            <div>Iron: <span id="iron"></span></div>
-                            <div>Vitamin D: <span id="vitaminD"></span></div>
-                            <div class="col-span-2 mt-2">
-                                <span id="warning" class="text-red-600 font-semibold"></span>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-green-50 p-4 rounded-lg">
                             <h3 class="font-semibold mb-2">Origin Information</h3>
@@ -60,6 +43,25 @@
                                 <span class="bg-green-600 text-white px-2 py-1 rounded-full text-sm">Organic Certified</span>
                             </div>
                             <p class="mt-2">Tariff: <span id="tariff"></span></p>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h2 class="text-xl font-semibold mb-2">Nutrition Facts</h2>
+                        <div id="nutritionFacts" class="grid grid-cols-2 gap-2">
+                            <div>Serving Size: <span id="servingSize"></span></div>
+                            <div>Calories: <span id="calories"></span></div>
+                            <div>Total Fat: <span id="totalFat"></span></div>
+                            <div>Saturated Fat: <span id="saturatedFat"></span></div>
+                            <div>Sodium: <span id="sodium"></span></div>
+                            <div>Carbohydrates: <span id="carbohydrates"></span></div>
+                            <div>Protein: <span id="protein"></span></div>
+                            <div>Fiber: <span id="fiber"></span></div>
+                            <div>Sugar: <span id="sugar"></span></div>
+                            <div>Calcium: <span id="calcium"></span></div>
+                            <div>Iron: <span id="iron"></span></div>
+                            <div>Vitamin D: <span id="vitaminD"></span></div>
+                            <div>Warning: <span id="warning"></span></div>
                         </div>
                     </div>
 
@@ -149,7 +151,7 @@
                 document.getElementById('calcium').textContent = nutrition.calcium || 'N/A';
                 document.getElementById('iron').textContent = nutrition.iron || 'N/A';
                 document.getElementById('vitaminD').textContent = nutrition.vitamin_d || 'N/A';
-                document.getElementById('warning').textContent = nutrition.warning || 'No warnings';
+                document.getElementById('warning').textContent = nutrition.warning || 'N/A';
 
                 // Update other information
                 document.getElementById('origin').textContent = product.origin;
@@ -167,6 +169,7 @@
                 // Show or hide badges
                 document.getElementById('canadianBadge').style.display = product.is_100_canadian ? 'block' : 'none';
                 document.getElementById('organicBadge').style.display = product.organic_certified ? 'block' : 'none';
+                document.getElementById('verifiedSellerBadge').style.display = product.is_provided_by_verified_seller ? 'block' : 'none';
 
                 showProduct();
 
