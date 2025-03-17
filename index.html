@@ -2,184 +2,131 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#3B82F6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Canadian Product Information</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="css/styles.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
     <div class="container mx-auto px-4 py-8 max-w-2xl">
-        <div id="productCard" class="bg-white rounded-lg shadow-lg p-6">
+        <div id="productCard" class="bg-white rounded-lg shadow-lg p-6 animate__animated animate__fadeIn">
             <div id="loadingState" class="text-center py-8">
-                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto loading-spinner"></div>
                 <p class="mt-4 text-gray-600">Loading product information...</p>
             </div>
 
-            <div id="productInfo" class="hidden">
+            <div id="productInfo" class="hidden animate__animated animate__fadeIn">
                 <div class="text-center mb-6">
-                    <h1 id="productName" class="text-3xl font-bold text-gray-800 mb-2"></h1>
+                    <h1 id="productName" class="text-3xl font-bold text-gray-800 mb-2 animate__animated animate__fadeInDown"></h1>
                     <div class="flex justify-center mb-4">
-                        <img id="productImage" src="" alt="Product Image" class="rounded-lg max-h-64 object-contain">
-                    </div>
-                    <!-- Add verified seller badge -->
-                    <div id="verifiedSellerBadge" class="hidden mt-2">
-                        <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">Verified Seller</span>
+                        <div class="relative w-full max-w-md">
+                            <div class="product-image-container">
+                                <img id="productImage" src="" alt="Product Image" class="skeleton-loading">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="space-y-4">
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-green-50 p-4 rounded-lg">
-                            <h3 class="font-semibold mb-2">Origin Information</h3>
-                            <p>Origin: <span id="origin"></span></p>
-                            <div id="canadianBadge" class="hidden mt-2">
-                                <span class="bg-red-600 text-white px-2 py-1 rounded-full text-sm">100% Canadian Made</span>
+                        <div class="info-section bg-green-50 p-4 rounded-lg animate__animated animate__fadeInLeft">
+                            <h3 class="font-semibold mb-2 flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"></path>
+                                </svg>
+                                Origin & Verification
+                            </h3>
+                            <div class="origin-verification-container">
+                                <div class="flex items-center">
+                                    <span class="origin-label">Origin:</span>
+                                    <span id="origin" class="ml-2"></span>
+                                </div>
+                            </div>
+                            <div class="badges-container mt-2">
+                                <div id="verifiedSellerBadge" class="hidden">
+                                    <span class="badge">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                        Verified Provider
+                                    </span>
+                                </div>
+                                <div id="canadianBadge" class="hidden">
+                                    <span class="badge bg-red-600 text-white flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
+                                        </svg>
+                                        100% Canadian Made
+                                    </span>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="bg-yellow-50 p-4 rounded-lg">
-                            <h3 class="font-semibold mb-2">Certifications</h3>
+                        <div class="info-section bg-yellow-50 p-4 rounded-lg animate__animated animate__fadeInRight">
+                            <h3 class="font-semibold mb-2 flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                                </svg>
+                                Certifications
+                            </h3>
                             <div id="certifications" class="space-y-2"></div>
                             <div id="organicBadge" class="hidden mt-2">
-                                <span class="bg-green-600 text-white px-2 py-1 rounded-full text-sm">Organic Certified</span>
+                                <span class="badge bg-green-600 text-white flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                    Organic Certified
+                                </span>
                             </div>
-                            <p class="mt-2">Tariff: <span id="tariff"></span></p>
+                            <p class="mt-2 flex items-center">Tariff: <span id="tariff" class="ml-2"></span></p>
                         </div>
                     </div>
 
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <h2 class="text-xl font-semibold mb-2">Nutrition Facts</h2>
+                    <div class="info-section bg-blue-50 p-4 rounded-lg animate__animated animate__fadeInUp">
+                        <h2 class="text-xl font-semibold mb-2 flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                            </svg>
+                            Nutrition Facts
+                        </h2>
                         <div id="nutritionFacts" class="grid grid-cols-2 gap-2">
-                            <div>Serving Size: <span id="servingSize"></span></div>
-                            <div>Calories: <span id="calories"></span></div>
-                            <div>Total Fat: <span id="totalFat"></span></div>
-                            <div>Saturated Fat: <span id="saturatedFat"></span></div>
-                            <div>Sodium: <span id="sodium"></span></div>
-                            <div>Carbohydrates: <span id="carbohydrates"></span></div>
-                            <div>Protein: <span id="protein"></span></div>
-                            <div>Fiber: <span id="fiber"></span></div>
-                            <div>Sugar: <span id="sugar"></span></div>
-                            <div>Calcium: <span id="calcium"></span></div>
-                            <div>Iron: <span id="iron"></span></div>
-                            <div>Vitamin D: <span id="vitaminD"></span></div>
-                            <div>Warning: <span id="warning"></span></div>
+                            <!-- Nutrition facts will be populated by JavaScript -->
                         </div>
                     </div>
 
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <h3 class="font-semibold mb-2">Additives & Ingredients</h3>
-                        <p id="additives"></p>
+                    <div class="info-section bg-gray-50 p-4 rounded-lg animate__animated animate__fadeInUp">
+                        <h3 class="font-semibold mb-2 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                            </svg>
+                            Additives & Ingredients
+                        </h3>
+                        <p id="additives" class="text-gray-700"></p>
                     </div>
 
-                    <div class="bg-purple-50 p-4 rounded-lg">
-                        <h3 class="font-semibold mb-2">Date Information</h3>
-                        <p>Production Date: <span id="productionDate"></span></p>
-                        <p>Best Before: <span id="expirationDate"></span></p>
+                    <div class="info-section bg-purple-50 p-4 rounded-lg animate__animated animate__fadeInUp">
+                        <h3 class="font-semibold mb-2 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            Date Information
+                        </h3>
+                        <p class="flex items-center mb-2">Production Date: <span id="productionDate" class="ml-2"></span></p>
+                        <p class="flex items-center">Best Before: <span id="expirationDate" class="ml-2"></span></p>
                     </div>
                 </div>
             </div>
 
-            <div id="errorState" class="hidden text-center text-red-600 p-8">
+            <div id="errorState" class="hidden text-center text-red-600 p-8 animate__animated animate__fadeIn">
                 <h2 class="text-2xl font-bold"></h2>
             </div>
         </div>
     </div>
 
-    <script>
-        // Get URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const productId = urlParams.get('id');
-
-        // Show loading state
-        function showLoading() {
-            document.getElementById('loadingState').classList.remove('hidden');
-            document.getElementById('productInfo').classList.add('hidden');
-            document.getElementById('errorState').classList.add('hidden');
-        }
-
-        // Show error message
-        function showError(message) {
-            document.getElementById('loadingState').classList.add('hidden');
-            document.getElementById('productInfo').classList.add('hidden');
-            document.getElementById('errorState').classList.remove('hidden');
-            document.getElementById('errorState').querySelector('h2').textContent = message;
-        }
-
-        // Show product information
-        function showProduct() {
-            document.getElementById('loadingState').classList.add('hidden');
-            document.getElementById('productInfo').classList.remove('hidden');
-            document.getElementById('errorState').classList.add('hidden');
-        }
-
-        // Format date
-        function formatDate(dateString) {
-            return new Date(dateString).toLocaleDateString('en-CA');
-        }
-
-        // Load product data
-        async function loadProductData() {
-            try {
-                showLoading();
-
-                if (!productId) {
-                    throw new Error('Product ID not provided');
-                }
-
-                const response = await fetch('products_info.json');
-                const products = await response.json();
-                const product = products.find(p => p.id === productId);
-
-                if (!product) {
-                    throw new Error('Product not found');
-                }
-
-                // Update page information
-                document.getElementById('productName').textContent = product.product_name;
-                document.getElementById('productImage').src = product.product_image;
-                
-                // Update nutrition facts
-                const nutrition = product.nutrition_facts;
-                document.getElementById('servingSize').textContent = nutrition.serving_size || 'N/A';
-                document.getElementById('calories').textContent = nutrition.calories || 'N/A';
-                document.getElementById('totalFat').textContent = nutrition.total_fat || 'N/A';
-                document.getElementById('saturatedFat').textContent = nutrition.saturated_fat || 'N/A';
-                document.getElementById('sodium').textContent = nutrition.sodium || 'N/A';
-                document.getElementById('carbohydrates').textContent = nutrition.carbohydrates || 'N/A';
-                document.getElementById('protein').textContent = nutrition.protein || 'N/A';
-                document.getElementById('fiber').textContent = nutrition.fiber || 'N/A';
-                document.getElementById('sugar').textContent = nutrition.sugar || 'N/A';
-                document.getElementById('calcium').textContent = nutrition.calcium || 'N/A';
-                document.getElementById('iron').textContent = nutrition.iron || 'N/A';
-                document.getElementById('vitaminD').textContent = nutrition.vitamin_d || 'N/A';
-                document.getElementById('warning').textContent = nutrition.warning || 'N/A';
-
-                // Update other information
-                document.getElementById('origin').textContent = product.origin;
-                document.getElementById('tariff').textContent = product.tariff_info;
-                document.getElementById('additives').textContent = product.additives_harmful_ingredients;
-                document.getElementById('productionDate').textContent = formatDate(product.timestamp.production_date);
-                document.getElementById('expirationDate').textContent = formatDate(product.timestamp.expiration_date);
-
-                // Show certifications
-                const certificationsDiv = document.getElementById('certifications');
-                certificationsDiv.innerHTML = product.certifications.map(cert => 
-                    `<div class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">${cert}</div>`
-                ).join('');
-
-                // Show or hide badges
-                document.getElementById('canadianBadge').style.display = product.is_100_canadian ? 'block' : 'none';
-                document.getElementById('organicBadge').style.display = product.organic_certified ? 'block' : 'none';
-                document.getElementById('verifiedSellerBadge').style.display = product.is_provided_by_verified_seller ? 'block' : 'none';
-
-                showProduct();
-
-            } catch (error) {
-                showError(error.message);
-            }
-        }
-
-        // Execute when page loads
-        loadProductData();
-    </script>
+    <script type="module" src="js/main.js"></script>
 </body>
-</html> 
+</html>
