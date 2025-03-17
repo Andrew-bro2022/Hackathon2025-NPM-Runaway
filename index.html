@@ -82,7 +82,15 @@
                                     Organic Certified
                                 </span>
                             </div>
-                            <p class="mt-2 flex items-center">Tariff: <span id="tariff" class="ml-2"></span></p>
+                            <div id="tariffInfo" class="mt-4 space-y-2">
+                                <h4 class="font-semibold flex items-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8h6m-5 0a3 3 0 110 6H9l3 3m-3-6h6m6 1a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    Tariff Information
+                                </h4>
+                                <div id="tariffDetails" class="bg-yellow-100 rounded-md p-2"></div>
+                            </div>
                         </div>
                     </div>
 
@@ -124,9 +132,26 @@
             <div id="errorState" class="hidden text-center text-red-600 p-8 animate__animated animate__fadeIn">
                 <h2 class="text-2xl font-bold"></h2>
             </div>
+
+            <div class="download-section mt-6 text-center">
+                <button id="downloadBtn" class="download-button">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    Download Product Info
+                </button>
+            </div>
         </div>
     </div>
 
+    <!-- Scroll to top button -->
+    <button id="scrollToTop" class="scroll-to-top-button hidden">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script type="module" src="js/main.js"></script>
 </body>
 </html>

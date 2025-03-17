@@ -39,7 +39,7 @@ export class ProductLoader {
 
         // Update other information
         document.getElementById('origin').textContent = product.origin;
-        document.getElementById('tariff').textContent = product.tariff_info;
+        this.displayTariffInfo(product.tariff_info);
         document.getElementById('additives').textContent = product.additives_harmful_ingredients;
         
         // Update dates
@@ -100,19 +100,58 @@ export class ProductLoader {
 
     updateCertifications(certifications) {
         const certificationsDiv = document.getElementById('certifications');
-        certificationsDiv.innerHTML = certifications.map(cert => 
-            `<div class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">${cert}</div>`
-        ).join('');
+        // Add "Organic Certified" to certifications if the badge is visible
+        const organicBadge = document.getElementById('organicBadge');
+        if (organicBadge && organicBadge.style.display !== 'none') {
+            certifications = [...certifications, 'Organic Certified'];
+        }
+        
+        certificationsDiv.innerHTML = `<div class="flex flex-wrap gap-2">
+            ${certifications.map(cert => 
+                `<span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">${cert}</span>`
+            ).join('')}
+        </div>`;
+        
+        // Hide the original organic badge since it's now part of certifications
+        if (organicBadge) {
+            organicBadge.style.display = 'none';
+        }
     }
 
     updateBadges(product) {
         document.getElementById('canadianBadge').style.display = product.is_100_canadian ? 'block' : 'none';
         document.getElementById('organicBadge').style.display = product.organic_certified ? 'block' : 'none';
         document.getElementById('verifiedSellerBadge').style.display = product.is_provided_by_verified_seller ? 'block' : 'none';
+        
+        // Update certifications after setting badge visibility
+        this.updateCertifications(product.certifications || []);
     }
 
     formatDate(dateString) {
         return new Date(dateString).toLocaleDateString('en-CA');
+    }
+
+    displayTariffInfo(tariff) {
+        if (!tariff) return;
+        
+        const tariffDetails = document.getElementById('tariffDetails');
+        if (!tariffDetails) return;
+
+        // Format tariff information
+        const tariffInfo = Array.isArray(tariff) ? tariff : [tariff];
+        
+        const tariffHTML = tariffInfo.map(item => {
+            const rateValue = typeof item === 'object' ? item.rate : item;
+            const rateText = rateValue.toLowerCase().includes('duty-free') ? 
+                'Duty-free (Canadian product)' : rateValue;
+            
+            return `<div class="flex items-center py-1">
+                <span class="font-medium">Rate:</span>
+                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm ml-2">${rateText}</span>
+            </div>`;
+        }).join('');
+
+        tariffDetails.innerHTML = tariffHTML || '<div class="flex items-center py-1"><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">No tariff information available</span></div>';
     }
 
     showLoading() {
