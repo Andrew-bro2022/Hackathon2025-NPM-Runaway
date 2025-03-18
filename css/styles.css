@@ -399,6 +399,26 @@ body.dark-mode .info-section {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+body.dark-mode .info-section.bg-green-50 {
+    background-color: rgba(34, 197, 94, 0.1);
+}
+
+body.dark-mode .info-section.bg-yellow-50 {
+    background-color: rgba(234, 179, 8, 0.1);
+}
+
+body.dark-mode .info-section.bg-blue-50 {
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+body.dark-mode .info-section.bg-gray-50 {
+    background-color: rgba(75, 85, 99, 0.1);
+}
+
+body.dark-mode .info-section.bg-purple-50 {
+    background-color: rgba(168, 85, 247, 0.1);
+}
+
 body.dark-mode .skeleton-loading {
     background: linear-gradient(90deg, #374151 25%, #4B5563 50%, #374151 75%);
 }
@@ -426,6 +446,89 @@ body.dark-mode #tariffDetails > div {
 
 body.dark-mode #tariffDetails > div:hover {
     background-color: rgba(59, 130, 246, 0.15);
+}
+
+/* Dark mode text colors */
+body.dark-mode .text-gray-800 {
+    color: #F3F4F6;
+}
+
+body.dark-mode .text-gray-700 {
+    color: #E5E7EB;
+}
+
+body.dark-mode .text-gray-600 {
+    color: #D1D5DB;
+}
+
+/* Dark mode badge colors */
+body.dark-mode .bg-blue-100 {
+    background-color: rgba(59, 130, 246, 0.2);
+}
+
+body.dark-mode .text-blue-800 {
+    color: #E0F2FE;
+}
+
+body.dark-mode .bg-green-600 {
+    background-color: #059669;
+}
+
+body.dark-mode .bg-red-600 {
+    background-color: #DC2626;
+}
+
+/* Dark mode border colors */
+body.dark-mode .border-gray-200 {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Dark mode download button */
+body.dark-mode .download-button {
+    background-color: #4F46E5;
+}
+
+body.dark-mode .download-button:hover {
+    background-color: #4338CA;
+}
+
+/* Dark mode loading spinner */
+body.dark-mode .loading-spinner {
+    border-color: #F3F4F6;
+}
+
+/* Dark mode section titles */
+body.dark-mode .font-semibold {
+    color: #F3F4F6;
+}
+
+/* Dark mode icons */
+body.dark-mode svg {
+    stroke: #F3F4F6;
+}
+
+/* Dark mode container background */
+body.dark-mode .container {
+    background-color: #1F2937;
+}
+
+/* Dark mode hover effects */
+body.dark-mode .info-section:hover {
+    background-color: #4B5563;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Dark mode scrollbar */
+body.dark-mode ::-webkit-scrollbar-track {
+    background: #374151;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+    background: #4B5563;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb:hover {
+    background: #6B7280;
 }
 
 /* Dark mode styles for buttons */
