@@ -2,7 +2,7 @@
     {
         "id": "001",
         "product_name": "Neilson Dairy Oh! 2% Milk",
-        "product_image": "https://images.unsplash.com/photo-1563636619-e9143da7973b?ixlib=rb-4.0.3",
+        "product_image": "/images/milk.jpg",
         "origin": "Ontario, Canada",
         "is_100_canadian": true,
         "organic_certified": false,
@@ -83,7 +83,7 @@
     {
         "id": "004",
         "product_name": "SWISS CLASSIC Milk Chocolate Bar",
-        "product_image": "/images/SWISS_Chocolate_Bar.jpg",
+        "product_image": "/images/chocolate.jpg",
         "origin": "Switzerland",
         "is_100_canadian": false,
         "organic_certified": false,
