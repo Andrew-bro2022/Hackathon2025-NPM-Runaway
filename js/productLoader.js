@@ -13,9 +13,8 @@ export class ProductLoader {
             return imagePath;
         }
         
-        // Handle local path - remove any leading 'images/' as it's already included in the path
-        const normalizedPath = imagePath.replace(/^images\//, '');
-        return `./images/${normalizedPath}`;
+        // Handle local path - ensure it starts from root
+        return imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
     }
 
     async loadProductData() {
@@ -51,12 +50,12 @@ export class ProductLoader {
         productImage.onerror = () => {
             console.error('Failed to load image:', product.product_image);
             // Try alternative path if the first attempt fails
-            const altPath = product.product_image.startsWith('./') ? 
-                product.product_image.slice(2) : 
-                `./${product.product_image}`;
+            const altPath = product.product_image.startsWith('/') ? 
+                product.product_image.slice(1) : 
+                product.product_image;
             productImage.onerror = () => {
                 console.error('Failed to load image with alternative path:', altPath);
-                productImage.src = './images/placeholder.png';
+                productImage.src = '/images/placeholder.png';
             };
             productImage.src = altPath;
         };
