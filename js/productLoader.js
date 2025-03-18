@@ -55,19 +55,19 @@ export class ProductLoader {
 
     updateNutritionFacts(nutrition) {
         const nutritionFields = {
-            'servingSize': 'serving_size',
-            'calories': 'calories',
-            'totalFat': 'total_fat',
-            'saturatedFat': 'saturated_fat',
-            'sodium': 'sodium',
-            'carbohydrates': 'carbohydrates',
-            'protein': 'protein',
-            'fiber': 'fiber',
-            'sugar': 'sugar',
-            'calcium': 'calcium',
-            'iron': 'iron',
-            'vitaminD': 'vitamin_d',
-            'warning': 'warning'
+            'ServingSize': 'serving_size',
+            'Calories': 'calories',
+            'TotalFat': 'total_fat',
+            'SaturatedFat': 'saturated_fat',
+            'Sodium': 'sodium',
+            'Carbohydrates': 'carbohydrates',
+            'Protein': 'protein',
+            'Fiber': 'fiber',
+            'Sugar': 'sugar',
+            'Calcium': 'calcium',
+            'Iron': 'iron',
+            'VitaminD': 'vitamin_d',
+            'Warning': 'warning'
         };
 
         const nutritionFactsContainer = document.getElementById('nutritionFacts');
