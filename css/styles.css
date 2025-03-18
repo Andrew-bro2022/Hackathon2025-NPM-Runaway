@@ -101,6 +101,13 @@
         width: 1.25rem;
         height: 1.25rem;
     }
+
+    .theme-toggle-button {
+        top: 0.75rem;
+        right: 0.75rem;
+        width: 2.25rem;
+        height: 2.25rem;
+    }
 }
 
 /* Modern UI Components */
@@ -277,8 +284,8 @@ html {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    background-color: var(--primary-color);
-    color: white;
+    background-color: #E0F2FE;  /* Light blue background */
+    color: #0369A1;  /* Darker blue text for better contrast */
     width: 3rem;
     height: 3rem;
     border-radius: 9999px;
@@ -299,7 +306,7 @@ html {
 }
 
 .scroll-to-top-button:hover {
-    background-color: #2563EB;
+    background-color: #BAE6FD;  /* Slightly darker on hover */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
 }
@@ -345,4 +352,90 @@ html {
     #tariffDetails > div:hover {
         background-color: rgba(59, 130, 246, 0.15);
     }
+}
+
+/* Theme toggle button styles */
+.theme-toggle-button {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background-color: #E0F2FE;  /* Light blue background */
+    color: #0369A1;  /* Darker blue text for better contrast */
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 50;
+}
+
+.theme-toggle-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background-color: #BAE6FD;  /* Slightly darker on hover */
+}
+
+.theme-toggle-button:active {
+    transform: scale(0.95);
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #1F2937;
+    color: #F3F4F6;
+}
+
+body.dark-mode #productCard {
+    background-color: #374151;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .info-section {
+    background-color: #4B5563;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .skeleton-loading {
+    background: linear-gradient(90deg, #374151 25%, #4B5563 50%, #374151 75%);
+}
+
+body.dark-mode .scroll-to-top-button {
+    background-color: #4F46E5;
+}
+
+body.dark-mode .scroll-to-top-button:hover {
+    background-color: #4338CA;
+}
+
+body.dark-mode #verifiedSellerBadge .badge {
+    background-color: #7C3AED;
+}
+
+body.dark-mode #tariffInfo h4 {
+    color: inherit;
+}
+
+body.dark-mode #tariffDetails > div {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #E5E7EB;
+}
+
+body.dark-mode #tariffDetails > div:hover {
+    background-color: rgba(59, 130, 246, 0.15);
+}
+
+/* Dark mode styles for buttons */
+body.dark-mode .theme-toggle-button,
+body.dark-mode .scroll-to-top-button {
+    background-color: #1E40AF;  /* Darker blue for dark mode */
+    color: #E0F2FE;  /* Light blue text for dark mode */
+}
+
+body.dark-mode .theme-toggle-button:hover,
+body.dark-mode .scroll-to-top-button:hover {
+    background-color: #1E3A8A;  /* Even darker blue for hover in dark mode */
 } 
