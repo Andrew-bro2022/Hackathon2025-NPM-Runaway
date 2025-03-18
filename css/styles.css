@@ -8,12 +8,22 @@
 }
 
 /* Product image base styles */
+.product-image-container {
+    width: 100%;
+    max-width: 400px;  /* 限制最大宽度 */
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #productImage {
-    border-radius: 1rem;
-    object-fit: contain;
     width: 100%;
     height: auto;
-    max-width: 100%;
+    max-width: 400px;  /* 限制最大宽度 */
+    max-height: 400px; /* 限制最大高度 */
+    object-fit: contain;
+    border-radius: 1rem;
     display: block;
     margin: 0 auto;
 }
@@ -37,13 +47,14 @@
         padding: 0 0.5rem;
     }
 
+    .product-image-container {
+        max-width: 300px;  /* 移动端更小的最大宽度 */
+    }
+
     #productImage {
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-        border-radius: 1rem !important;
-        margin: 1rem auto;
-        max-width: 100%;
+        max-width: 300px;  /* 移动端更小的最大宽度 */
+        max-height: 300px; /* 移动端更小的最大高度 */
+        border-radius: 0.75rem;
     }
 
     .grid-cols-2 {

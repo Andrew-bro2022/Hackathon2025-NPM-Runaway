@@ -4,6 +4,20 @@ export class ProductLoader {
         this.productId = new URLSearchParams(window.location.search).get('id');
     }
 
+    // Handle image path (local or remote)
+    getImagePath(imagePath) {
+        if (!imagePath) return '';
+        
+        // Check if the path is a URL
+        if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+            return imagePath;
+        }
+        
+        // Handle local path - remove any leading 'images/' as it's already included in the path
+        const normalizedPath = imagePath.replace(/^images\//, '');
+        return `./images/${normalizedPath}`;
+    }
+
     async loadProductData() {
         try {
             this.showLoading();
@@ -31,7 +45,25 @@ export class ProductLoader {
     updateProductInfo(product) {
         // Update basic info
         document.getElementById('productName').textContent = product.product_name;
-        document.getElementById('productImage').src = product.product_image;
+        
+        // Handle image loading with error handling
+        const productImage = document.getElementById('productImage');
+        productImage.onerror = () => {
+            console.error('Failed to load image:', product.product_image);
+            // Try alternative path if the first attempt fails
+            const altPath = product.product_image.startsWith('./') ? 
+                product.product_image.slice(2) : 
+                `./${product.product_image}`;
+            productImage.onerror = () => {
+                console.error('Failed to load image with alternative path:', altPath);
+                productImage.src = './images/placeholder.png';
+            };
+            productImage.src = altPath;
+        };
+        
+        const imagePath = this.getImagePath(product.product_image);
+        console.log('Loading image from:', imagePath); // Debug log
+        productImage.src = imagePath;
         
         // Update nutrition facts
         const nutrition = product.nutrition_facts;

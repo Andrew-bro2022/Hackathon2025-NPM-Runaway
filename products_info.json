@@ -83,7 +83,7 @@
     {
         "id": "004",
         "product_name": "SWISS CLASSIC Milk Chocolate Bar",
-        "product_image": "https://images.unsplash.com/photo-1623660053975-e8f0f1a9d2bd?ixlib=rb-4.0.3",
+        "product_image": "images/SWISS_Chocolate_Bar.jpg",
         "origin": "Switzerland",
         "is_100_canadian": false,
         "organic_certified": false,
