@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Processing...
+                <span id="processStep">加载产品信息...</span>
             `;
 
             // Get the product card and ensure it's visible
@@ -84,6 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             // Prepare the document for screenshot
+            // Update process status
+            document.getElementById('processStep').textContent = "准备图片资源...";
+            
             // First fix any cross-origin issues with images
             const images = productCard.querySelectorAll('img');
             images.forEach(img => {
@@ -93,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             // Wait for all images to be fully loaded
+            document.getElementById('processStep').textContent = "加载图片中...";
             await Promise.all(Array.from(images).filter(img => !img.complete).map(img => {
                 return new Promise(resolve => {
                     // Set both onload and onerror to resolve the promise
@@ -102,13 +106,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }));
             
             // Add additional delay to ensure rendering is complete
-            await new Promise(resolve => setTimeout(resolve, 500));
+            document.getElementById('processStep').textContent = "等待动画完成...";
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Temporarily disable animations
+            document.getElementById('processStep').textContent = "准备截图...";
+            const animatedElements = productCard.querySelectorAll('.animate__animated');
+            animatedElements.forEach(el => {
+                el.classList.remove('animate__animated');
+                el.classList.remove('animate__fadeIn', 'animate__fadeInUp', 'animate__fadeInDown', 'animate__fadeInLeft', 'animate__fadeInRight');
+            });
+            
+            // Additional delay to ensure everything is stable
+            await new Promise(resolve => setTimeout(resolve, 1000));
             
             // Get current theme for proper background color
             const isDarkMode = document.body.classList.contains('dark-mode');
             const backgroundColor = isDarkMode ? '#1F2937' : '#F3F4F6';
             
             // Take the screenshot with enhanced configuration
+            document.getElementById('processStep').textContent = "生成截图中...";
             const canvas = await html2canvas(productCard, {
                 scale: 2, // Higher quality
                 useCORS: true, // Allow loading cross-origin images
@@ -148,7 +165,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 productInfo.classList.add('hidden');
             }
             
+            // Restore animations
+            animatedElements.forEach(el => {
+                el.classList.add('animate__animated');
+            });
+            
             // Convert canvas to image and download
+            document.getElementById('processStep').textContent = "完成截图，准备下载...";
             const image = canvas.toDataURL('image/png', 1.0); // Use highest quality
             const link = document.createElement('a');
             const productName = document.getElementById('productName').textContent || 'product';
