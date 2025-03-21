@@ -134,26 +134,82 @@ document.addEventListener('DOMContentLoaded', () => {
                 logging: true, // Enable logging for debugging
                 imageTimeout: 0, // No timeout for image loading
                 onclone: (clonedDoc) => {
-                    // In the cloned document, make sure everything is visible
+                    // 获取当前主题的背景色
+                    const isDarkMode = document.body.classList.contains('dark-mode');
+                    const mainBgColor = isDarkMode ? '#1F2937' : '#F3F4F6';
+                    const cardBgColor = isDarkMode ? '#374151' : '#FFFFFF';
+                    const sectionBgColors = {
+                        'bg-green-50': isDarkMode ? 'rgba(34, 197, 94, 0.1)' : '#F0FDF4',
+                        'bg-yellow-50': isDarkMode ? 'rgba(234, 179, 8, 0.1)' : '#FEFCE8',
+                        'bg-blue-50': isDarkMode ? 'rgba(59, 130, 246, 0.1)' : '#EFF6FF',
+                        'bg-gray-50': isDarkMode ? 'rgba(75, 85, 99, 0.1)' : '#F9FAFB',
+                        'bg-purple-50': isDarkMode ? 'rgba(168, 85, 247, 0.1)' : '#FAF5FF'
+                    };
+
+                    // 设置主容器背景
+                    const productCard = clonedDoc.getElementById('productCard');
+                    if (productCard) {
+                        productCard.style.backgroundColor = cardBgColor;
+                        productCard.style.opacity = '1';
+                    }
+
+                    // 设置所有信息区块的背景
+                    const sections = clonedDoc.querySelectorAll('.info-section');
+                    sections.forEach(section => {
+                        // 根据section的类名决定使用哪个背景色
+                        let bgColor = mainBgColor;
+                        Object.entries(sectionBgColors).forEach(([className, color]) => {
+                            if (section.classList.contains(className)) {
+                                bgColor = color;
+                            }
+                        });
+                        section.style.backgroundColor = bgColor;
+                        section.style.opacity = '1';
+                    });
+
+                    // 确保所有徽章可见且有正确的背景色
+                    const badges = clonedDoc.querySelectorAll('.badge');
+                    badges.forEach(badge => {
+                        badge.style.opacity = '1';
+                        // 保持徽章原有的背景色，但确保不透明
+                        if (!badge.style.backgroundColor) {
+                            badge.style.backgroundColor = isDarkMode ? '#4B5563' : '#E5E7EB';
+                        }
+                    });
+
+                    // 处理产品图片容器
+                    const imageContainer = clonedDoc.querySelector('.product-image-container');
+                    if (imageContainer) {
+                        imageContainer.style.backgroundColor = cardBgColor;
+                        imageContainer.style.opacity = '1';
+                    }
+
+                    // 添加全局样式以防止任何透明度
+                    const style = clonedDoc.createElement('style');
+                    style.textContent = `
+                        * {
+                            opacity: 1 !important;
+                            transition: none !important;
+                        }
+                        .info-section {
+                            border: 1px solid ${isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'};
+                        }
+                    `;
+                    clonedDoc.head.appendChild(style);
+
+                    // 确保内容可见性
                     const clonedProductInfo = clonedDoc.getElementById('productInfo');
-                    clonedProductInfo.classList.remove('hidden');
-                    
-                    // Hide loading and error states
+                    if (clonedProductInfo) {
+                        clonedProductInfo.classList.remove('hidden');
+                    }
+
+                    // 隐藏加载和错误状态
                     const loadingState = clonedDoc.getElementById('loadingState');
                     const errorState = clonedDoc.getElementById('errorState');
                     if (loadingState) loadingState.classList.add('hidden');
                     if (errorState) errorState.classList.add('hidden');
-                    
-                    // Make all badges visible
-                    const badges = clonedDoc.querySelectorAll('.badge');
-                    badges.forEach(badge => {
-                        const parent = badge.closest('div');
-                        if (parent && parent.classList.contains('hidden')) {
-                            parent.classList.remove('hidden');
-                        }
-                    });
-                    
-                    // Apply dark mode styles to cloned document if needed
+
+                    // 应用暗模式样式
                     if (isDarkMode) {
                         clonedDoc.body.classList.add('dark-mode');
                     }
