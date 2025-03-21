@@ -123,6 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Get current theme for proper background color
             const isDarkMode = document.body.classList.contains('dark-mode');
             const backgroundColor = isDarkMode ? '#1F2937' : '#F3F4F6';
+
+            // Force a repaint before taking screenshot
+            document.getElementById('processStep').textContent = "Preparing final render...";
+            productCard.style.transform = 'translateZ(0)';
+            await new Promise(resolve => setTimeout(resolve, 500));
             
             // Take the screenshot with enhanced configuration
             document.getElementById('processStep').textContent = "Generating screenshot...";
@@ -133,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 backgroundColor: backgroundColor,
                 logging: true, // Enable logging for debugging
                 imageTimeout: 0, // No timeout for image loading
+                removeContainer: false, // Prevent removal of the clone container
                 onclone: (clonedDoc) => {
                     // 获取当前主题的背景色
                     const isDarkMode = document.body.classList.contains('dark-mode');
@@ -146,53 +152,87 @@ document.addEventListener('DOMContentLoaded', () => {
                         'bg-purple-50': isDarkMode ? 'rgba(168, 85, 247, 0.1)' : '#FAF5FF'
                     };
 
+                    // Force hardware acceleration and prevent any transitions
+                    const forceRenderStyle = `
+                        * {
+                            -webkit-transform: translateZ(0);
+                            -moz-transform: translateZ(0);
+                            transform: translateZ(0);
+                            -webkit-backface-visibility: hidden;
+                            -moz-backface-visibility: hidden;
+                            backface-visibility: hidden;
+                            -webkit-perspective: 1000;
+                            -moz-perspective: 1000;
+                            perspective: 1000;
+                            opacity: 1 !important;
+                            transition: none !important;
+                            animation: none !important;
+                        }
+                    `;
+
                     // 设置主容器背景
                     const productCard = clonedDoc.getElementById('productCard');
                     if (productCard) {
-                        productCard.style.backgroundColor = cardBgColor;
-                        productCard.style.opacity = '1';
+                        productCard.style.cssText = `
+                            background-color: ${cardBgColor} !important;
+                            opacity: 1 !important;
+                            position: relative !important;
+                            z-index: 1 !important;
+                            transform: translateZ(0);
+                        `;
                     }
 
                     // 设置所有信息区块的背景
                     const sections = clonedDoc.querySelectorAll('.info-section');
                     sections.forEach(section => {
-                        // 根据section的类名决定使用哪个背景色
                         let bgColor = mainBgColor;
                         Object.entries(sectionBgColors).forEach(([className, color]) => {
                             if (section.classList.contains(className)) {
                                 bgColor = color;
                             }
                         });
-                        section.style.backgroundColor = bgColor;
-                        section.style.opacity = '1';
+                        section.style.cssText = `
+                            background-color: ${bgColor} !important;
+                            opacity: 1 !important;
+                            position: relative !important;
+                            z-index: 2 !important;
+                        `;
                     });
 
                     // 确保所有徽章可见且有正确的背景色
                     const badges = clonedDoc.querySelectorAll('.badge');
                     badges.forEach(badge => {
-                        badge.style.opacity = '1';
-                        // 保持徽章原有的背景色，但确保不透明
-                        if (!badge.style.backgroundColor) {
-                            badge.style.backgroundColor = isDarkMode ? '#4B5563' : '#E5E7EB';
-                        }
+                        const currentBg = window.getComputedStyle(badge).backgroundColor;
+                        badge.style.cssText = `
+                            background-color: ${currentBg || (isDarkMode ? '#4B5563' : '#E5E7EB')} !important;
+                            opacity: 1 !important;
+                            position: relative !important;
+                            z-index: 3 !important;
+                        `;
                     });
 
                     // 处理产品图片容器
                     const imageContainer = clonedDoc.querySelector('.product-image-container');
                     if (imageContainer) {
-                        imageContainer.style.backgroundColor = cardBgColor;
-                        imageContainer.style.opacity = '1';
+                        imageContainer.style.cssText = `
+                            background-color: ${cardBgColor} !important;
+                            opacity: 1 !important;
+                            position: relative !important;
+                            z-index: 2 !important;
+                        `;
                     }
 
-                    // 添加全局样式以防止任何透明度
+                    // 添加全局样式
                     const style = clonedDoc.createElement('style');
                     style.textContent = `
-                        * {
-                            opacity: 1 !important;
-                            transition: none !important;
-                        }
+                        ${forceRenderStyle}
                         .info-section {
-                            border: 1px solid ${isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'};
+                            border: 1px solid ${isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'} !important;
+                        }
+                        #productCard * {
+                            transform: translateZ(0);
+                            backface-visibility: hidden;
+                            perspective: 1000;
                         }
                     `;
                     clonedDoc.head.appendChild(style);
@@ -200,19 +240,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     // 确保内容可见性
                     const clonedProductInfo = clonedDoc.getElementById('productInfo');
                     if (clonedProductInfo) {
-                        clonedProductInfo.classList.remove('hidden');
+                        clonedProductInfo.style.cssText = `
+                            display: block !important;
+                            visibility: visible !important;
+                            opacity: 1 !important;
+                        `;
                     }
 
                     // 隐藏加载和错误状态
                     const loadingState = clonedDoc.getElementById('loadingState');
                     const errorState = clonedDoc.getElementById('errorState');
-                    if (loadingState) loadingState.classList.add('hidden');
-                    if (errorState) errorState.classList.add('hidden');
+                    if (loadingState) loadingState.style.display = 'none';
+                    if (errorState) errorState.style.display = 'none';
 
                     // 应用暗模式样式
                     if (isDarkMode) {
                         clonedDoc.body.classList.add('dark-mode');
                     }
+
+                    // 强制重绘
+                    clonedDoc.body.offsetHeight;
                 }
             });
             
